@@ -1,7 +1,7 @@
 package com.clothing_store.Controller;
 
-import com.clothing_store.Entity.ClienteEntity;
-import com.clothing_store.Service.ClienteService;
+import com.clothing_store.Entity.FuncionarioEntity;
+import com.clothing_store.Service.FuncionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,27 +10,27 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/cliente")
-public class ClienteController {
+@RequestMapping("/api/funcionario")
+public class FuncionarioController {
 
     @Autowired
-    private ClienteService clienteService;
+    private FuncionarioService funcionarioService;
 
     @PostMapping("/save")
-    public ResponseEntity<ClienteEntity> save(@RequestBody ClienteEntity clienteEntity) {
+    public ResponseEntity<FuncionarioEntity> save(@RequestBody FuncionarioEntity funcionarioEntity) {
         try {
-            ClienteEntity cliente = this.clienteService.save(clienteEntity);
-            return new ResponseEntity<>(cliente, HttpStatus.OK);
+            FuncionarioEntity funcionario = this.funcionarioService.save(funcionarioEntity);
+            return new ResponseEntity<>(funcionario, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<ClienteEntity> update(@RequestBody ClienteEntity clienteEntity, @PathVariable Long id) {
+    public ResponseEntity<FuncionarioEntity> update(@RequestBody FuncionarioEntity funcionarioEntity, @PathVariable Long id) {
         try {
-            ClienteEntity cliente = this.clienteService.update(clienteEntity, id);
-            return new ResponseEntity<>(cliente, HttpStatus.OK);
+            FuncionarioEntity funcionario = this.funcionarioService.update(funcionarioEntity, id);
+            return new ResponseEntity<>(funcionario, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
@@ -39,7 +39,7 @@ public class ClienteController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable long id) {
         try {
-            String mensagem = this.clienteService.delete(id);
+            String mensagem = this.funcionarioService.delete(id);
             return new ResponseEntity<>(mensagem, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
@@ -47,19 +47,19 @@ public class ClienteController {
     }
 
     @GetMapping("/findById/{id}")
-    public ResponseEntity<ClienteEntity> findById(@PathVariable long id) {
+    public ResponseEntity<FuncionarioEntity> findById(@PathVariable long id) {
         try {
-            ClienteEntity cliente = this.clienteService.findById(id);
-            return new ResponseEntity<>(cliente, HttpStatus.OK);
+            FuncionarioEntity funcionario = this.funcionarioService.findById(id);
+            return new ResponseEntity<>(funcionario, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/findAll")
-    public ResponseEntity<List<ClienteEntity>> findAll() {
+    public ResponseEntity<List<FuncionarioEntity>> findAll() {
         try {
-            List<ClienteEntity> lista = this.clienteService.findAll();
+            List<FuncionarioEntity> lista = this.funcionarioService.findAll();
             return new ResponseEntity<>(lista, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

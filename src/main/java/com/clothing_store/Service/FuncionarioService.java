@@ -34,11 +34,12 @@ public class FuncionarioService {
         }
     }
 
-    public void delete(Long id) {
+    public String delete(Long id) {
         try {
             this.funcionarioRepository.deleteById(id);
+            return "Deletado";
         } catch (Exception e) {
-            System.out.println("Erro ao deletar o funcionário com ID " + id + ": " + e.getMessage());
+            return "Erro ao deletar funcionario";
         }
     }
 

@@ -34,11 +34,12 @@ public class VendaService {
         }
     }
 
-    public void delete(Long id) {
+    public String delete(Long id) {
         try {
             this.vendaRepository.deleteById(id);
+            return "Deletado";
         } catch (Exception e) {
-            System.out.println("Erro ao deletar a venda com ID " + id + ": " + e.getMessage());
+            return "Erro ao deletar venda";
         }
     }
 

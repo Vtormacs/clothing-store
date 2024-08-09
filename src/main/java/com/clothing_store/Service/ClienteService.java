@@ -34,11 +34,12 @@ public class ClienteService {
         }
     }
 
-    public void delete(Long id) {
+    public String delete(Long id) {
         try {
             this.clienteRepository.deleteById(id);
+            return "Deletado";
         } catch (Exception e) {
-            System.out.println("Erro ao deletar o cliente com ID " + id + ": " + e.getMessage());
+            return "Erro ao deletar cliente";
         }
     }
 

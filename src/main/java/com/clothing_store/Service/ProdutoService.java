@@ -34,11 +34,12 @@ public class ProdutoService {
         }
     }
 
-    public void delete(Long id) {
+    public String delete(Long id) {
         try {
             this.produtoRepository.deleteById(id);
+            return "Deletado";
         } catch (Exception e) {
-            System.out.println("Erro ao deletar o produto com ID " + id + ": " + e.getMessage());
+            return "Erro ao deletar produto";
         }
     }
 

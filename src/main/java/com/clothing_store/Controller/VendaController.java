@@ -1,7 +1,7 @@
 package com.clothing_store.Controller;
 
-import com.clothing_store.Entity.ClienteEntity;
-import com.clothing_store.Service.ClienteService;
+import com.clothing_store.Entity.VendaEntity;
+import com.clothing_store.Service.VendaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,27 +10,27 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/cliente")
-public class ClienteController {
+@RequestMapping("/api/venda")
+public class VendaController {
 
     @Autowired
-    private ClienteService clienteService;
+    private VendaService vendaService;
 
     @PostMapping("/save")
-    public ResponseEntity<ClienteEntity> save(@RequestBody ClienteEntity clienteEntity) {
+    public ResponseEntity<VendaEntity> save(@RequestBody VendaEntity vendaEntity) {
         try {
-            ClienteEntity cliente = this.clienteService.save(clienteEntity);
-            return new ResponseEntity<>(cliente, HttpStatus.OK);
+            VendaEntity venda = this.vendaService.save(vendaEntity);
+            return new ResponseEntity<>(venda, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<ClienteEntity> update(@RequestBody ClienteEntity clienteEntity, @PathVariable Long id) {
+    public ResponseEntity<VendaEntity> update(@RequestBody VendaEntity vendaEntity, @PathVariable Long id) {
         try {
-            ClienteEntity cliente = this.clienteService.update(clienteEntity, id);
-            return new ResponseEntity<>(cliente, HttpStatus.OK);
+            VendaEntity venda = this.vendaService.update(vendaEntity, id);
+            return new ResponseEntity<>(venda, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
@@ -39,7 +39,7 @@ public class ClienteController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable long id) {
         try {
-            String mensagem = this.clienteService.delete(id);
+            String mensagem = this.vendaService.delete(id);
             return new ResponseEntity<>(mensagem, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
@@ -47,19 +47,19 @@ public class ClienteController {
     }
 
     @GetMapping("/findById/{id}")
-    public ResponseEntity<ClienteEntity> findById(@PathVariable long id) {
+    public ResponseEntity<VendaEntity> findById(@PathVariable long id) {
         try {
-            ClienteEntity cliente = this.clienteService.findById(id);
-            return new ResponseEntity<>(cliente, HttpStatus.OK);
+            VendaEntity venda = this.vendaService.findById(id);
+            return new ResponseEntity<>(venda, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/findAll")
-    public ResponseEntity<List<ClienteEntity>> findAll() {
+    public ResponseEntity<List<VendaEntity>> findAll() {
         try {
-            List<ClienteEntity> lista = this.clienteService.findAll();
+            List<VendaEntity> lista = this.vendaService.findAll();
             return new ResponseEntity<>(lista, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
