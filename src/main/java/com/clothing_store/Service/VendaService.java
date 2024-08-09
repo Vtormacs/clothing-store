@@ -1,6 +1,10 @@
 package com.clothing_store.Service;
 
+import com.clothing_store.Entity.ClienteEntity;
+import com.clothing_store.Entity.FuncionarioEntity;
 import com.clothing_store.Entity.VendaEntity;
+import com.clothing_store.Repository.ClienteRepository;
+import com.clothing_store.Repository.FuncionarioRepository;
 import com.clothing_store.Repository.VendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +19,32 @@ public class VendaService {
     @Autowired
     private VendaRepository vendaRepository;
 
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    @Autowired
+    private FuncionarioRepository funcionarioRepository;
+
     public VendaEntity save(VendaEntity vendaEntity) {
         try {
+            if (vendaEntity.getCliente() != null && vendaEntity.getCliente().getId() != null) {
+                Optional<ClienteEntity> clienteOptional = clienteRepository.findById(vendaEntity.getCliente().getId());
+                if (clienteOptional.isPresent()) {
+                    vendaEntity.setCliente(clienteOptional.get());
+                } else {
+                    throw new Exception("Cliente não encontrado");
+                }
+            }
+
+            if (vendaEntity.getFuncionario() != null && vendaEntity.getFuncionario().getId() != null) {
+                Optional<FuncionarioEntity> funcionarioOptional = funcionarioRepository.findById(vendaEntity.getFuncionario().getId());
+                if (funcionarioOptional.isPresent()) {
+                    vendaEntity.setFuncionario(funcionarioOptional.get());
+                } else {
+                    throw new Exception("Funcionário não encontrado");
+                }
+            }
+
             return this.vendaRepository.save(vendaEntity);
         } catch (Exception e) {
             System.out.println("Erro ao salvar a venda: " + e.getMessage());

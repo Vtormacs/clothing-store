@@ -1,7 +1,10 @@
 package com.clothing_store.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,4 +25,7 @@ public class FuncionarioEntity {
     private String endereco;
     private String funcao;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "funcionario")
+    private List<VendaEntity> vendas;
 }

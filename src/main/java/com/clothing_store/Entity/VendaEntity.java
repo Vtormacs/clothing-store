@@ -21,4 +21,12 @@ public class VendaEntity {
     private String observacao;
     private Double total;
 
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private ClienteEntity cliente;
+
+    @ManyToOne
+    @JoinColumn(name = "funcionario_id")
+    private FuncionarioEntity funcionario;
+
 }
