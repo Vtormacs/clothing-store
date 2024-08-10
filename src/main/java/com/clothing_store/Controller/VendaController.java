@@ -66,4 +66,14 @@ public class VendaController {
         }
     }
 
+    @GetMapping("/findByClienteNome")
+    public ResponseEntity<List<VendaEntity>> findByClienteNome(@RequestParam String nomeCliente) {
+        try {
+            List<VendaEntity> vendas = vendaService.findByClienteNome(nomeCliente);
+            return new ResponseEntity<>(vendas, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
 }

@@ -112,4 +112,13 @@ public class VendaService {
             return Collections.emptyList();
         }
     }
+
+    public List<VendaEntity> findByClienteNome(String nomeCliente) {
+        try {
+            return vendaRepository.findByClienteNome(nomeCliente);
+        } catch (Exception e) {
+            System.out.println("Erro ao buscar vendas com o nome do cliente: " + e.getMessage());
+            return Collections.emptyList();
+        }
+    }
 }
