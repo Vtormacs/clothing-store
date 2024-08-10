@@ -1,7 +1,3 @@
-Aqui está um exemplo de um README.md para o seu projeto de gerenciamento de vendas de uma loja de roupas:
-
----
-
 # Gerenciamento de Vendas - Loja de Roupas
 
 ## Descrição do Projeto
