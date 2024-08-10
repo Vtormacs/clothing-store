@@ -2,13 +2,16 @@ package com.clothing_store.Service;
 
 import com.clothing_store.Entity.ClienteEntity;
 import com.clothing_store.Entity.FuncionarioEntity;
+import com.clothing_store.Entity.ProdutoEntity;
 import com.clothing_store.Entity.VendaEntity;
 import com.clothing_store.Repository.ClienteRepository;
 import com.clothing_store.Repository.FuncionarioRepository;
+import com.clothing_store.Repository.ProdutoRepository;
 import com.clothing_store.Repository.VendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +27,9 @@ public class VendaService {
 
     @Autowired
     private FuncionarioRepository funcionarioRepository;
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
 
     public VendaEntity save(VendaEntity vendaEntity) {
         try {
@@ -43,6 +49,19 @@ public class VendaService {
                 } else {
                     throw new Exception("Funcionário não encontrado");
                 }
+            }
+
+            if (vendaEntity.getProdutos() != null && !vendaEntity.getProdutos().isEmpty()) {
+                List<ProdutoEntity> produtosAssociados = new ArrayList<>();
+                for (ProdutoEntity produto : vendaEntity.getProdutos()) {
+                    Optional<ProdutoEntity> produtoOptional = produtoRepository.findById(produto.getId());
+                    if (produtoOptional.isPresent()) {
+                        produtosAssociados.add(produtoOptional.get());
+                    } else {
+                        throw new Exception("Produto com ID " + produto.getId() + " não encontrado");
+                    }
+                }
+                vendaEntity.setProdutos(produtosAssociados);
             }
 
             return this.vendaRepository.save(vendaEntity);

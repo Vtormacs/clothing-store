@@ -1,7 +1,10 @@
 package com.clothing_store.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,4 +21,8 @@ public class ProdutoEntity {
     private String nome;
     private String descricao;
     private Double preco;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "produtos")
+    private List<VendaEntity> vendas;
 }

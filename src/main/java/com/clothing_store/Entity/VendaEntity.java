@@ -29,4 +29,12 @@ public class VendaEntity {
     @JoinColumn(name = "funcionario_id")
     private FuncionarioEntity funcionario;
 
+    @ManyToMany
+    @JoinTable(
+            name = "tb_venda_item",
+            joinColumns = @JoinColumn(name = "venda_id"),
+            inverseJoinColumns = @JoinColumn(name = "produto_id")
+    )
+    private List<ProdutoEntity> produtos;
+
 }
