@@ -51,18 +51,22 @@ public class VendaService {
                 }
             }
 
+            double total = 0.0;
             if (vendaEntity.getProdutos() != null && !vendaEntity.getProdutos().isEmpty()) {
                 List<ProdutoEntity> produtosAssociados = new ArrayList<>();
                 for (ProdutoEntity produto : vendaEntity.getProdutos()) {
                     Optional<ProdutoEntity> produtoOptional = produtoRepository.findById(produto.getId());
                     if (produtoOptional.isPresent()) {
-                        produtosAssociados.add(produtoOptional.get());
+                        ProdutoEntity produtoEncontrado = produtoOptional.get();
+                        produtosAssociados.add(produtoEncontrado);
+                        total += produtoEncontrado.getPreco();
                     } else {
                         throw new Exception("Produto com ID " + produto.getId() + " não encontrado");
                     }
                 }
                 vendaEntity.setProdutos(produtosAssociados);
             }
+            vendaEntity.setTotal(total);
 
             return this.vendaRepository.save(vendaEntity);
         } catch (Exception e) {
