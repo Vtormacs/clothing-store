@@ -77,6 +77,42 @@ public class VendaService {
 
     public VendaEntity update(VendaEntity vendaEntity, Long id) {
         try {
+
+            if (vendaEntity.getCliente() != null && vendaEntity.getCliente().getId() != null) {
+                Optional<ClienteEntity> clienteOptional = clienteRepository.findById(vendaEntity.getCliente().getId());
+                if (clienteOptional.isPresent()) {
+                    vendaEntity.setCliente(clienteOptional.get());
+                } else {
+                    throw new Exception("Cliente não encontrado");
+                }
+            }
+
+            if (vendaEntity.getFuncionario() != null && vendaEntity.getFuncionario().getId() != null) {
+                Optional<FuncionarioEntity> funcionarioOptional = funcionarioRepository.findById(vendaEntity.getFuncionario().getId());
+                if (funcionarioOptional.isPresent()) {
+                    vendaEntity.setFuncionario(funcionarioOptional.get());
+                } else {
+                    throw new Exception("Funcionário não encontrado");
+                }
+            }
+
+            double total = 0.0;
+            if (vendaEntity.getProdutos() != null && !vendaEntity.getProdutos().isEmpty()) {
+                List<ProdutoEntity> produtosAssociados = new ArrayList<>();
+                for (ProdutoEntity produto : vendaEntity.getProdutos()) {
+                    Optional<ProdutoEntity> produtoOptional = produtoRepository.findById(produto.getId());
+                    if (produtoOptional.isPresent()) {
+                        ProdutoEntity produtoEncontrado = produtoOptional.get();
+                        produtosAssociados.add(produtoEncontrado);
+                        total += produtoEncontrado.getPreco();
+                    } else {
+                        throw new Exception("Produto com ID " + produto.getId() + " não encontrado");
+                    }
+                }
+                vendaEntity.setProdutos(produtosAssociados);
+            }
+            vendaEntity.setTotal(total);
+
             vendaEntity.setId(id);
             return this.vendaRepository.save(vendaEntity);
         } catch (Exception e) {
