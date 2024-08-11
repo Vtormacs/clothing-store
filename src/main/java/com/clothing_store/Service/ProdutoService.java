@@ -61,4 +61,13 @@ public class ProdutoService {
             return Collections.emptyList();
         }
     }
+
+    public List<ProdutoEntity> find10ProdutosMaisCaros() {
+        try {
+            return this.produtoRepository.find10ProdutosMaisCaros();
+        } catch (Exception e) {
+            System.out.println("Erro ao buscar os 10 produtos mais caros: " + e.getMessage());
+            return Collections.emptyList();
+        }
+    }
 }
