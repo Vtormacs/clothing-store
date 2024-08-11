@@ -85,4 +85,14 @@ public class VendaController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/find10ComTotalMaisAlto")
+    public ResponseEntity<List<VendaEntity>> find10ComTotalMaisAlto() {
+        try {
+            List<VendaEntity> vendas = vendaService.find10ComTotalMaisAlto();
+            return new ResponseEntity<>(vendas, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

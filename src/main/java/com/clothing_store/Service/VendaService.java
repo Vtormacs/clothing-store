@@ -130,4 +130,13 @@ public class VendaService {
             return Collections.emptyList();
         }
     }
+
+    public List<VendaEntity> find10ComTotalMaisAlto() {
+        try {
+            return vendaRepository.find10ComTotalMaisAlto();
+        } catch (Exception e) {
+            System.out.println("Erro ao buscar as 10 vendas mais altas: " + e.getMessage());
+            return Collections.emptyList();
+        }
+    }
 }
