@@ -62,4 +62,13 @@ public class ClienteService {
         }
     }
 
+    public List<ClienteEntity> clienteBetween18And35() {
+        try {
+            return this.clienteRepository.clienteBetween18And35();
+        } catch (Exception e) {
+            System.out.println("Erro ao buscar clientes entre 18 a 35 anos: " + e.getMessage());
+            return Collections.emptyList();
+        }
+    }
+
 }

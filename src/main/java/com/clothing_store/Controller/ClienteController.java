@@ -66,4 +66,14 @@ public class ClienteController {
         }
     }
 
+    @GetMapping("/clienteBetween18And35")
+    public ResponseEntity<List<ClienteEntity>> clienteBetween18And35() {
+        try {
+            List<ClienteEntity> lista = this.clienteService.clienteBetween18And35();
+            return new ResponseEntity<>(lista, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

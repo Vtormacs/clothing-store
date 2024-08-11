@@ -69,7 +69,7 @@ public class ProdutoController {
     @GetMapping("/find10ProdutosMaisCaros")
     public ResponseEntity<List<ProdutoEntity>> find10ProdutosMaisCaros() {
         try {
-            List<ProdutoEntity> lista = this.produtoService.findAll();
+            List<ProdutoEntity> lista = this.produtoService.find10ProdutosMaisCaros();
             return new ResponseEntity<>(lista, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
